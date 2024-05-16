@@ -1,7 +1,10 @@
+import os
 from utils.user import User as user
 from utils.dice_game import DiceGame
 
 account = []
+
+import os
 
 class UserManager:
     @staticmethod
@@ -31,8 +34,8 @@ class UserManager:
             if users.password == password:
                 return True
         return False
-    
-	@staticmethod
+
+    @staticmethod
     def load_users_from_file():
         users_file_path = os.path.join("utils/data", "users.txt")
         if os.path.exists(users_file_path) and os.path.getsize(users_file_path) > 0:
