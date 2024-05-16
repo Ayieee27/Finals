@@ -4,7 +4,7 @@ from utils.score import Score
 
 scores = []
 
-class DiceGame:
+class DiceGame:  
     @staticmethod
     def load_scores():
         try:
