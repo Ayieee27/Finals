@@ -14,6 +14,8 @@ class UserManager:
     @staticmethod
     def save_users(username, password):
         account.append(user(username, password))
+        with open(os.path.join("utils/data", "users.txt"), "a") as file:
+            file.write(f"{username},{password}\n")
         print("Registered Successfully!")
 
     @staticmethod
@@ -29,6 +31,17 @@ class UserManager:
             if users.password == password:
                 return True
         return False
+    
+	@staticmethod
+    def load_users_from_file():
+        users_file_path = os.path.join("utils/data", "users.txt")
+        if os.path.exists(users_file_path) and os.path.getsize(users_file_path) > 0:
+            with open(users_file_path, "r") as file:
+                for line in file:
+                    username, password = line.strip().split(",")
+                    account.append(user(username, password))
+        else:
+            print("No existing users to load.")
 
     def register(self):
         username = None
@@ -53,6 +66,7 @@ class UserManager:
         UserManager.save_users(username, password)
 
     def login(self):
+        UserManager.load_users_from_file()
         while True:
             if len(account) == 0:
                 print("Register first!")
